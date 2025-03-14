@@ -1,0 +1,141 @@
+Year, Vendor,Name,Category,Sub-category,Cost,Amount,Rank
+2017, Daxue Jiadao, Wild Laocong Shuixian,Oolong,"Wuyi, Yongchun",0.96,16.00,1
+2024, One River Tea, Private Order Longjing #108,White,,2.00,9.00,2
+2023, Daxue Jiadao, Yongchun Shuixian Kaishan,Oolong,"Wuyi, Yongchun",1.51,50.00,3
+2024, One River Tea, Silver Needle,White,,1.20,25.00,4
+2011, Unknown, Dayi Golden TAE,Puer,Aged Sheng,2.50,30.00,5
+2011, Teas We Like, Biyun Hao Zhengjialiangzi,Puer,Aged Sheng,1.19,20.00,6
+2023, Daxue Jiadao, Yongchun Shuixian Annual,Oolong,"Wuyi, Yongchun",0.77,50.00,7
+2022, Daxue Jiadao, Yongchun Laocong Shuixian Bainian, Oolong, "Wuyi, Yongchun",1.26,8,
+NULL, "Zoey's Teas", Wudong Old Tree Aofuhou,Oolong,Dancong,1.32,50.00,9
+NULL, "Zoey's Teas", Mo Li Xiang, Oolong, Dancong, 1,8, 10
+2023, Daxue Jiadao, Yongchun Fo Shou Kaishan,Oolong,"Wuyi, Yongchun",1.47,50.00,8
+2023, Daxue Jiadao, Yongchun Fo Shou Annual,Oolong,"Wuyi, Yongchun",0.77,50.00,11
+NULL, "Zoey's Teas",Real Zheng Yan Hui Yuan Keng Pure Da Hong Pao, Oolong, "Wuyi, Yongchun", 0.7,8,
+NULL, "Zoey's Teas", Ping Keng Tou Yashi Xiang,Oolong,Dancong,0.70,60.00,11
+2023, Bitterleaf, Duck Tale Yashi Xiang,Oolong,Dancong,0.82,25.00,12
+2024, TShop, Boseong Sejak,Green,KR Green,1.75,5.00,14
+2024, One River Tea, King Peony,White,,0.40,50.00,13
+2005, Teas We Like, Chen Yuan Hao Shanzhong Chuanqi,Puer,Aged Sheng,1.74,20.00,16
+2023, Song Tea, Nantou Dark, Oolong, Taiwanese, 0.53, 10,
+2024, Floating Leaves, Dong Ding Trad. A,Oolong,Taiwanese,0.41,60.00,33
+2022, Daxue Jiadao, Guoxiang Rougui,Oolong,"Wuyi, Yongchun",0.40,8.00,36
+2024, Ryuouen, Top Shelf Hatsugana Matcha,Green,Matcha,1.00,20.00,15
+2024, Ippodo, Kyogoko no Mukashi,Green,Matcha,0.59,20.00,21
+2022, Old Ways Tea, Laocong Shuixian,Oolong,"Wuyi, Yongchun",0.67,64.00,17
+2024, Floating Leaves, Jade Peak High Montain,Oolong,Taiwanese,0.52,30.00,20
+2023, Floating Leaves, Farmer's Choice Baozhong,Oolong,Taiwanese,0.35,60.00,18
+2021, Old Ways Tea, Spring Single Cultivar Da Hong Pao,Oolong,"Wuyi, Yongchun",0.67,8.00,19
+2022, Old Ways Tea, Bei Dou,Oolong,"Wuyi, Yongchun",0.33,40.00,31
+2024, Floating Leaves, High Mountain Diva,Oolong,Taiwanese,0.45,60.00,27
+2024, Floating Leaves, Competition Baozhong,Oolong,Taiwanese,0.45,30.00,24
+2024, Floating Leaves, Charcoal Roast Dong Ding, Oolong,Taiwanese,0.65, 30.00, 121
+2024, Viet Sun, Lai Chau Deep Forest Green,Green,Viet Green,0.23,25.00,23
+2022, Daxue Jiadao, Yongchun Fo Shou Trad,Oolong,"Wuyi, Yongchun",0.77,8.00,28
+2001, Teas We Like, Red Ribbon,Puer,Aged Sheng,0.53,15.00,26
+2023, Ketlee, First Flush Darjeeling,Black,,0.32,8.00,35
+2023, Bitterleaf, Praise Bee Milan Xiang,Oolong,Dancong,0.90,25.00,34
+2022, Daxue Jiadao, Baiyun Rougui,Oolong,"Wuyi, Yongchun",0.70,8.00,25
+2024, Old Ways Tea, Light Roast Da Hong Pao, Oolong, "Wuyi, Yongchun",0.3,40.00,54
+2023, Old Ways Tea, First Roast Shui Xian,Oolong,"Wuyi, Yongchun",0.24,40.00,54
+2023, Old Ways Tea, Second Roast Shui Xian,Oolong,"Wuyi, Yongchun",0.24,40.00,54
+2023, Old Ways Tea, Zhangping Shui Xian,Oolong,"Wuyi, Yongchun",0.22,8.00,32
+2024, Ryuouen, Saiko,Green,JP Green,0.33,50.00,37
+2023, Mountain Stream Teas, Sanxia Green,Green,TW Green,0.50,25.00,41
+2024, One River Tea, Mingqian Longjing,Green,CN Green,0.52,25.00,29
+2023, Viet Sun, Mong Rong Ya Bao,White,Vietnamese,0.25,8.00,39
+2011, Puerh Junky, MKRS ""Creme Florale"",Puer,Aged Sheng,0.22,30.00,30
+2022, White2Tea, Loon-call in the Dark,Puer,Shou,0.45,25.00,49
+2023, Thes du Japon, "Kawane, Moto-Fujikawa Shizu-7132",Green,JP Green,0.20,100.00,48
+2024, Viet Sun, Ha Giang Black,Black,Vietnamese,0.19,25.00,44
+2024, Morning Crane, Kim Jeong Yeol Chungiljem Sejak, Green,KR Green,0.75,15,
+2023, Viet Sun, Pu Ta Leng White,White,Vietnamese,0.28,25.00,40
+2023, Thes du Japon, Fuji-Kaori,Black,Japanese,0.25,8.00,43
+2024, Old Ways Tea, Tong Mu Charcoal Roast,Black,"Wuyi, Yongchun",0.32,50.00,45
+2024, Old Ways Tea, Lan Shan Xiao Zhong,Black,"Wuyi, Yongchun",0.32,40.00,46
+2024, Old Ways Tea, Shui Di Xiang Xiao Zhong,Black,"Wuyi, Yongchun",0.32,40.00,47
+2004, Teas We Like, Xiaguan Jiaji,Puer,Aged Sheng,0.22,15.00,58
+NULL, "Zoey's Teas", Traditional Charcoal Roast Tie Guan Yin,Oolong,,0.50,50.00,51
+2024, Ryuouen, Asahi,Green,JP Green,0.20,5.00,38
+2015, Old Ways Tea, Aged Da Hong Pao,Oolong,"Wuyi, Yongchun",0.28,40.00,66
+2024, Floating Leaves Smooth Water,Oolong,Taiwanese,0.35,60.00,53
+2024, Floating Leaves, Sweet Cream Alishan High Mountain,Oolong,Taiwanese,0.45,30.00,50
+NULL, Yee On Best Taste,Puer,Shou,0.12,25.00,57
+2013, Bitterleaf, Goddess Roast Tie Guan Yin,Oolong,,0.21,50.00,56
+2024, Liquid Proust, Red Jade,White,Taiwanese,0.52,25.00,22
+2009, Puerh Junky, MKRS Da Xue Shan,Puer,Aged Sheng,0.18,12.00,85
+2024, Old Ways Tea, Jin Jun Mei,Black,"Wuyi, Yongchun",0.82,15.00,59
+2021, Song Tea,"Chen's Medium Roast", Oolong,Taiwanese,1.1,8,
+2015, Cookie Counselor,Puer,Shou,0.28,25.00,60
+2021, Viet Sun, Cao Bo Shou,Puer,Vietnamese,0.15,8.00,52
+2023, Morning Crane,Jeong Jae Yoon Halmonicha, Balhyocha,,0.4,25,
+2009, Yee On, Purple Mark,Puer,Shou,0.08,25.00,93
+2023, Floating Leaves, Dark Roast Tie Guan Yin,Oolong,Taiwanese,0.30,25.00,71
+2023, Thes du Japon, "Sayama, Hokumei",Green,JP Green,0.22,25.00,68
+2022, Old Ways Tea, Handmade Rou Gui, Oolong, "Wuyi, Yongchun",0.6,8,
+2022, Old Ways Tea, Ma Ton Yan Rou Gui,Oolong,"Wuyi, Yongchun",1.32,8.00,81
+2024, Old Ways Tea, Old Tree Rou Gui,Oolong,"Wuyi, Yongchun",0.56,40.00,91
+2022, Old Ways Tea, "Cousin’s Fo Shou",Oolong,"Wuyi, Yongchun",0.22,40.00,98
+2024, Old Ways Tea, New Tree Rou Gui,Oolong,"Wuyi, Yongchun",0.32,40.00,92
+2023, Bitterleaf, Double Scoop Dancong,Oolong,Dancong,0.25,25.00,83
+2024, Ippodo, Seiun/Shoin,Green,Matcha,0.68,30.00,42
+2024, One River Tea, Bi Luo Chun,Green,CN Green,0.46,12.00,55
+2021, Farmer Leaf, Baka,Puer,Young Sheng,0.50,10.00,67
+2022, Bitterleaf, Future Sailor,White,,0.24,25.00,86
+2024, Uji-cha-en, Chiran Fukamushi, Green, Japanese,0.14,20,73
+2023, Ketlee, Nilgiri Candy Black,Black,,0.30,25.00,63
+2021, Song Tea, Classic Rougui,Oolong, "Wuyi, Yongchun",1.2,8,
+2022, Kettl,Zairai Heirloom Hand Roast Hojicha,Green,Japanese,,,
+NULL, Ryuouen, Jou Yanagi Hojicha,Green,JP Green,0.13,10.00,62
+2023, Thes du Japon, Yoneta Goko Gyokuro,Green,JP Green,0.70,25.00,72
+2024, One River Tea, Golden Green,Green,CN Green,0.34,12.00,64
+2024, Viet Sun, Lung Vai,White,Vietnamese,0.21,20.00,78
+2022, Farmer Leaf, Ba Da Ye, Puer, Young Sheng, 0.13, 10, 122
+2024, Viet Sun, Lao Cai Secret Forest Black,Black,Vietnamese,0.25,25.00,76
+2024, Viet Sun, Lao Cai Black,Black,Vietnamese,0.19,25.00,77
+NULL, Ryuouen, Kin Hojicha,Green,JP Green,0.38,10.00,61
+2007, Puerh Junky, CNNP Water Blue Mark,Puer,Aged Sheng,0.17,12.00,90
+2023, Floating Leaves, GABA Oolong,Oolong,Taiwanese,0.35,30.00,75
+2024, One River Tea, Enshi Yulu,Green,CN Green,0.42,12.00,65
+2023, Thes du Japon, Okukuji Yabukita,Green,JP Green,0.20,25.00,73
+2023, Thes du Japon, Mimasaka Ryofu,Green,JP Green,0.15,25.00,70
+2023, Bitterleaf, In the Rough Songzhong Dancong,Oolong,Dancong,0.63,25.00,69
+2024, Ketlee, Nilgiri Needle Green,Green,,0.13,25.00,74
+2023, Ketlee, Nilgiri Highland Oolong,Oolong,,0.54,25.00,82
+2023, Yunnan Sourcing, Wild Tree Purple Moonlight White from Jinggu,White,,0.28,15.00,79
+2023, Mountain Stream Teas, Coastal Mountain Deep Water,Oolong,Taiwanese,0.24,25.00,84
+2022, White2Tea, Yesheng Gushu Baicha,White,,0.46,20.00,80
+2023, White2Tea, Charing Cross,White,,0.42,25.00,87
+2013, White2Tea, Gongmei,White,,0.32,25.00,88
+2014, White2Tea, Shoumei,White,,0.13,25.00,89
+2023, White2Tea, Yanhong,Black,,0.12,15.00,94
+2021, White2Tea, Tiltshift,White,,0.16,25.00,95
+2023, Yunnan Sourcing, Black Gold Bi Luo Chun,Black,,0.12,40.00,97
+2023, Ketlee, Nilgiri Candy Oolong,Oolong,,0.30,25.00,96
+2021, Essence of Tea, Boundless,Puer,Young Sheng,0.44,10.00,99
+2007, Puerh Junky, CNNP Thick Zen ,Puer,Aged Sheng,0.16,12.00,100
+2023, Bitterleaf, Forest Echo,Oolong,Dancong,0.22,12.00,101
+2007, Puerh Junky, CNNP Fuhai 7536 "Mincemeat",Puer,Aged Sheng,0.11,12.00,102
+2015, Old Ways Tea, Aged Shui Xian,Oolong,"Wuyi, Yongchun",0.20,40.00,103
+2022, Old Ways Tea, "Friend’s Fo Shou",Oolong,"Wuyi, Yongchun",0.21,40.00,104
+2023, Yunnan Sourcing, Purple Needle Black Tea of Jing Mai Mountain,Black,,0.11,20.00,105
+2014, Puerh Junky, CNNP Bulang Peacock,Puer,Aged Sheng,0.18,12.00,106
+2023, White2Tea, 941,Puer,Young Sheng,0.14,8.00,107
+2024, Old Ways Tea, Huang Guan Yin Batch #1,Oolong,"Wuyi, Yongchun",0.25,40.00,109
+2024, Old Ways Tea, Huang Guan Yin Batch #2,Oolong,"Wuyi, Yongchun",0.25,40.00,110
+2023, Bitteleaf, Easy Breezy Duck Shit,Oolong,Dancong,0.27,25.00,111
+2023, White2Tea, Zhenghe Red,Black,,0.11,10.00,108
+2022, Bitterleaf, Oh Deer,Puer,Young Sheng,0.29,8.00,112
+2023, White2Tea, Veldt,Puer,Young Sheng,0.17,8.00,113
+2013, Jade Leaf, Xiaguan Love Forever Paper Tong,Puer,Aged Sheng,0.40,10.00,114
+2018, Liquid Proust, Whipped Lemon Purple Sheng,Puer,,1.25,12.00,115
+2023, Bitterleaf, Plum Beauty,Puer,,0.23,10.00,116
+2023, Bitterleaf, Pain & Pleasure,Puer,,0.55,10.00,117
+2022, Bitterleaf, Year of the Bull,Puer,,0.11,10.00,118
+2024, Mountain Stream Teas, Nanhu Mountain,Oolong,,0.36,10.00,119
+2024, Mountain Stream Teas, Snow Pick Chi Lai,Oolong,,0.32,10.00,120
+
+
+
+
+
