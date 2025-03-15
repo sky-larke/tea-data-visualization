@@ -19,8 +19,8 @@ CREATE TABLE teas (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
     year INTEGER NOT NULL,
     rank INTEGER NOT NULL, 
-    vendor TEXT NOT NULL
-    name TEXT PRIMARY KEY NOT NULL,           
+    vendor TEXT NOT NULL,
+    name TEXT NOT NULL,           
     type TEXT NOT NULL,
     subtype TEXT,
     cost NUMERIC NOT NULL,

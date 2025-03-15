@@ -30,7 +30,7 @@ func printTeas(conn *pgx.Conn) error {
     for rows.Next() {
         var name string
         var rank int
-        if err := rows.Scan(&name, &rank); err != nil {
+        if err := rows.Scan(&name, &rank, &year, &vendor); err != nil {
             log.Fatal(err)
         }
         log.Printf("%s: %d\n", name, rank)
