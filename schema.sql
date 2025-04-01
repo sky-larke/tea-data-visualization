@@ -23,6 +23,7 @@ CREATE TABLE teas (
     name TEXT NOT NULL,           
     type TEXT NOT NULL,
     subtype TEXT,
+    cultivar TEXT,
     cost NUMERIC NOT NULL,
     amount INTEGER NOT NULL
 );

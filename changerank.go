@@ -4,36 +4,94 @@ import (
     "log"
     "os"
 	"fmt"
-
-    // "github.com/cockroachdb/cockroach-go/v2/crdb/crdbpgxv5"
+	"encoding/csv"
     "github.com/google/uuid"
     "github.com/jackc/pgx/v5"
 )
 
+type Record struct {
+	Year     int
+	Vendor   string
+	Name     string
+	Type     string
+	Subtype  string
+	Cost     float64
+	Amount   int
+	Rank     int
+}
+
+func insertFromCSV(conn *pgx.Conn) error {
+	var records []Record // This would be your CSV records
+	var dbRecords []Record
+	// open the csv
+	file, err := os.Open("data.csv")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	if err != nil {
+		fmt.Println("Error reading records:", err)
+		return
+	}
+
+
+	// SELECT the rows
+	rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost, type, subtype, amount FROM teas ORDER BY rank ASC NULLS LAST")
+	if err != nil {
+        log.Fatal(err)
+    }
+	defer rows.Close()
+
+	for rows.Next() {
+		var r Record
+		if err := rows.Scan(&r.Name, &r.Rank, &r.Year, &r.Vendor, &r.Cost, &r.Type, &r.Subtype, &r.Amount); err != nil {
+			log.Fatal(err)
+		}
+		dbRecords = append(dbRecords, r)
+	}
+
+	sqlIndex := 0
+	sqlLen := len(dbRecords)
+    
+    return nil
+}
+
 
 func insertRows(ctx context.Context, tx pgx.Tx, accts [4]uuid.UUID) error {
     // Insert four rows into the "accounts" table.
-    log.Println("Creating new rows...")
+    log.Println("Creating new entry...")
     if _, err := tx.Exec(ctx,
-        "INSERT INTO teas (id, balance) VALUES ($1, $2), ($3, $4), ($5, $6), ($7, $8)", accts[0], 250, accts[1], 100, accts[2], 500, accts[3], 300); err != nil {
+        "INSERT INTO teas (id, balance) VALUES ($1, $2)", accts[0], 250); err != nil {
         return err
     }
     return nil
 }
 
 func printTeas(conn *pgx.Conn) error {
-    rows, err := conn.Query(context.Background(), "SELECT name, rank FROM teas ORDER BY rank ASC NULLS LAST")
+    rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost FROM teas ORDER BY rank ASC NULLS LAST")
     if err != nil {
         log.Fatal(err)
     }
     defer rows.Close()
     for rows.Next() {
+		var year int
+		var vendor string
         var name string
         var rank int
-        if err := rows.Scan(&name, &rank, &year, &vendor); err != nil {
+		var price float64
+        if err := rows.Scan(&name, &rank, &year, &vendor, &price); err != nil {
             log.Fatal(err)
         }
-        log.Printf("%s: %d\n", name, rank)
+		if year == 0 {
+			log.Printf("%d. %s %s ($%.2f)\n",rank, vendor, name, price)
+		} else {
+			log.Printf("%d. %d %s %s ($%.2f)\n", rank, year, vendor, name, price)
+		}
+       
     }
     return nil
 }

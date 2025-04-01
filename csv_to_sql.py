@@ -16,9 +16,10 @@ def convert_csv_to_sql(csv_file, output_sql_file):
             # Strip spaces from the values
             name = row['Name'].strip()
             vendor = row['Vendor'].strip()
-            year = row['Year'].strip()
+            year = row['Year'].strip() if row['Year'].strip() else 0
             category = row['Category'].strip()
             subcategory = row['Sub-category'].strip() if row['Sub-category'].strip() else 'NULL'
+            cultivar = row['Cultivar'].strip() if row['Cultivar'].strip() else 'Unknown'
             cost = row['Cost'].strip()
             amount = row['Amount'].strip()
             rank += 1
@@ -26,7 +27,7 @@ def convert_csv_to_sql(csv_file, output_sql_file):
             # Extract vendor from the name (if available)
             
             # Format the SQL insert statement
-            sql = f"INSERT INTO teas(rank, vendor, name, year, type, subtype, cost, amount) VALUES ('{rank}', '{vendor}', '{name}', '{year if year else 0}', '{category}', '{subcategory}', '{cost}', '{amount}');\n"
+            sql = f"INSERT INTO teas(rank, vendor, name, year, type, subtype, cultivar, cost, amount) VALUES ('{rank}', '{vendor}', '{name}', '{year}', '{category}', '{subcategory}', '{cultivar}','{cost}', '{amount}');\n"
             
             # Write to the output SQL file
             outfile.write(sql)
