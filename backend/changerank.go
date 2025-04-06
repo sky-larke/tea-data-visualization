@@ -3,15 +3,14 @@ import (
     "context"
     "log"
     "os"
-	"fmt"
+	"io"
 	"strconv"
 	"encoding/csv"
-    "github.com/google/uuid"
+    //"github.com/google/uuid"
     "github.com/jackc/pgx/v5"
 )
 
 type Tea struct {
-	Id          int     `json:"id"`
 	Year		int		`json:"year"`
 	Rank		int		`json:"rank"`
 	Vendor      string  `json:"vendor"`
@@ -26,101 +25,176 @@ type Tea struct {
 
 
 func insertFromCSV(conn *pgx.Conn) error {
-	var records []Tea // This would be your CSV records
-	var dbRecords []Tea
 	// open the csv
-
 	file, err := os.Open("backend/tea.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
-
 	reader := csv.NewReader(file)
-	rawRecords, err := reader.ReadAll()
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// convert csv to correct format
-	for _, row := range rawRecords {
-		if len(row) < 9 {
-			log.Println("Skipping invalid row:", row)
-			continue
-		}
-		
-		
-		id, _  	:= strconv.Atoi(row[0])
-		year, _ := strconv.Atoi(row[1])    
-		rank, _ := strconv.Atoi(row[2])    
-		cost, _ := strconv.ParseFloat(row[8], 64)  
-
-		var teaType string 
-		var subtype string
-		if row[5] != "" {
-			teaType = row[5]
-		}
-
-		if row[6] != "" {
-			subtype = row[6]
-		} 
-
-		amount, _ := strconv.ParseFloat(row[9], 64) 
-
-		tea := Tea{
-			Id: id,
-			Year:    year,
-			Rank:    rank,
-			Name:    row[3],
-			Vendor:  row[4],
-			Type:    teaType,
-			Subtype: subtype,
-			Cultivar: row[7],
-			Cost:    cost,
-			Amount:  amount,
-		}
-
-		records = append(records, tea)
-		log.Printf(tea.Name)
-	}
 
 	// SELECT the rows
-	rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost, type, subtype, amount FROM teas ORDER BY rank ASC NULLS LAST")
+	rowptr, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost, type, subtype, cultivar, amount FROM Teas ORDER BY rank ASC NULLS LAST")
 	if err != nil {
         log.Fatal(err)
     }
-	defer rows.Close()
+	defer rowptr.Close()
 
-	// convert and add to records
-	for rows.Next() {
-		var r Tea
-		if err := rows.Scan(&r.Name, &r.Rank, &r.Year, &r.Vendor, &r.Cost, &r.Type, &r.Subtype, &r.Amount); err != nil {
-			log.Fatal(err)
+	teaMap := make(map[string]Tea)
+	for rowptr.Next() {
+		var t Tea
+		err := rowptr.Scan(&t.Name, &t.Rank, &t.Year, &t.Vendor, &t.Cost, &t.Type, &t.Subtype, &t.Cultivar, &t.Amount)
+		if err != nil {
+			log.Fatal("DB read error:", err)
 		}
-		dbRecords = append(dbRecords, r)
+		key := t.Vendor + "|" + t.Name
+		teaMap[key] = t
+	}
+	var localTea Tea
+
+	csvptr := 1
+	rank := 1
+	update := false
+	for {
+		row, err := reader.Read() // get row
+
+		// checks for the csv's validity
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			log.Printf("Skipping line %d: %v", row, err)
+			csvptr++
+			continue
+		} else if len(row) < 8 {
+			log.Printf("Skipping line %d: not enough fields (%d)", row, len(row))
+			csvptr++
+			continue
+		}
+		
+		// get tea of the csv row 
+		year, _ := strconv.Atoi(row[0])     
+		cost, _ := strconv.ParseFloat(row[6], 64)  
+		amount, _ := strconv.ParseFloat(row[7], 64) 
+
+		localTea = Tea{
+			Rank: rank,
+			Year:     year,
+			Vendor:   row[1],
+			Name:     row[2],
+			Type:     row[3],
+			Subtype:  row[4],
+			Cultivar: row[5],
+			Cost:     cost,
+			Amount:   amount,
+		}
+
+		// compare local to db version
+		key := localTea.Vendor + "|" + localTea.Name
+		dbTea, exists := teaMap[key]
+
+		
+		if exists {
+			update = false
+			if localTea.Year != dbTea.Year {
+				dbTea.Year = localTea.Year
+				update = true
+			}
+			if localTea.Type != dbTea.Type {
+				dbTea.Type = localTea.Type
+				update = true
+			}
+			if localTea.Subtype != dbTea.Subtype {
+				dbTea.Subtype = localTea.Subtype
+				update = true
+			}
+			if localTea.Cultivar != dbTea.Cultivar {
+				dbTea.Cultivar = localTea.Cultivar
+				update = true
+			}
+			if localTea.Cost != dbTea.Cost {
+				dbTea.Cost = localTea.Cost
+				update = true
+			}
+			if localTea.Amount != dbTea.Amount {
+				dbTea.Amount = localTea.Amount
+				update = true
+			}
+
+			if rank != dbTea.Rank {
+				dbTea.Rank = rank
+				update = true
+			}
+
+			if update {
+				_, err := conn.Exec(context.Background(), `
+				UPDATE Teas
+				SET year = $1,
+					rank = $2,
+					vendor = $3,
+					name = $4,
+					type = $5,
+					subtype = $6,
+					cultivar = $7,
+					cost = $8,
+					amount = $9
+				WHERE name = $4 AND vendor = $3`, 
+				dbTea.Year, dbTea.Rank, dbTea.Vendor, dbTea.Name, dbTea.Type, dbTea.Subtype, dbTea.Cultivar, dbTea.Cost, dbTea.Amount)
+				if err != nil {
+					log.Printf("Error UPDATEing %s/%s: %v", dbTea.Vendor, dbTea.Name, err)
+				}
+			}
+			
+			log.Println("Updating: ", dbTea.Vendor, dbTea.Name)
+			
+			// move rowptr
+			if rowptr.Next() {
+				err := rowptr.Scan(
+					&dbTea.Name,
+					&dbTea.Rank,
+					&dbTea.Year,
+					&dbTea.Vendor,
+					&dbTea.Cost,
+					&dbTea.Type,
+					&dbTea.Subtype,
+					&dbTea.Cultivar,
+					&dbTea.Amount,
+				)
+				if err != nil {
+					log.Fatal("166", err)
+				}
+			}
+		} else {
+			log.Println("Adding: ", localTea.Vendor, localTea.Name)
+			_, err := conn.Exec(context.Background(), `
+				INSERT INTO Teas (
+					year,
+					rank,
+					vendor,
+					name,
+					type,
+					subtype,
+					cultivar,
+					cost,
+					amount
+				) VALUES (
+					$1, $2, $3, $4, $5, $6, $7, $8, $9
+				)`,
+				localTea.Year, localTea.Rank, localTea.Vendor, localTea.Name, localTea.Type, localTea.Subtype, localTea.Cultivar, localTea.Cost, localTea.Amount)
+			if err != nil {
+				log.Printf("Error INSERTing %s/%s: %v", dbTea.Vendor, dbTea.Name, err)
+			}
+		}
+
+		rank++
+		csvptr++
 	}
 
-	// sqlIndex := 0
-	// sqlLen := len(dbRecords)
 
-
-    return nil
-}
-
-
-func insertRows(ctx context.Context, tx pgx.Tx, accts [4]uuid.UUID) error {
-    // Insert four rows into the "accounts" table.
-    log.Println("Creating new entry...")
-    if _, err := tx.Exec(ctx,
-        "INSERT INTO teas (id, balance) VALUES ($1, $2)", accts[0], 250); err != nil {
-        return err
-    }
     return nil
 }
 
 func printTeas(conn *pgx.Conn) error {
-    rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost FROM teas ORDER BY rank ASC NULLS LAST")
+    rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost FROM Teas ORDER BY rank ASC NULLS LAST")
     if err != nil {
         log.Fatal(err)
     }
@@ -144,21 +218,6 @@ func printTeas(conn *pgx.Conn) error {
     return nil
 }
 
-// func add(conn *pgx.Conn, after int, entry string) error {
-// 	_, err := tx.Exec(ctx,
-//         "INSERT INTO teas (id, rank, name, year, type, subtype, cost, amount, vendor) VALUES $1", entry); 
-//     if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	rows, err := conn.Query(context.Background(), "UPDATE teas SET rank = rank + 1 WHERE id >= $1",after) 
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-    
-	
-// 	return nil
-// }
 
 
 func main() {
@@ -176,20 +235,7 @@ func main() {
 	log.Println("Adding from CSV:")
 	insertFromCSV(conn)
     // Print out the balances
-    log.Println("All tea:")
+    log.Println("\n\nAll tea:")
     printTeas(conn)
-
-	var rank int = 121
-    var name string = ""    
-    var year int = 0
-    var tea_type string = ""
-    var subtype string = ""
-    var cost int = 0
-    var amount int = 0
-    var vendor string = ""
-	
-	var command string = fmt.Sprintf("(%d, %s, %d, %s, %s, %d, %d, %s)", rank, name, year, tea_type, subtype, cost, amount, vendor)
-	log.Printf(command)
-	//add(conn, command)
 
 }
