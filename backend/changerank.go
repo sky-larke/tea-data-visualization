@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"encoding/csv"
     "github.com/jackc/pgx/v5"
-	"github.com/gin-gonic/gin"
+	//"github.com/gin-gonic/gin"
 	//"github.com/sajari/regression"
 )
 
@@ -50,7 +50,7 @@ func updateDatabase(path string, conn *pgx.Conn) error {
 	teaMap := make(map[string]Tea)
 	for rowptr.Next() {
 		var t Tea
-		err := rowptr.Scan(&t.Name, &t.Rank, &t.Year, &t.Vendor, &t.Cost, &t.Type, &t.Subtype, &t.Cultivar, &t.Amount)
+		err := rowptr.Scan(&t.Year, &t.Rank, &t.Vendor, &t.Name, &t.Type, &t.Subtype, &t.Cultivar, &t.Cost, &t.Amount)
 		if err != nil {
 			log.Fatal("DB read error:", err)
 		}
@@ -148,25 +148,6 @@ func updateDatabase(path string, conn *pgx.Conn) error {
 				}
 			}
 			
-			
-			
-			// move rowptr
-			if rowptr.Next() {
-				err := rowptr.Scan(
-					&dbTea.Year,
-					&dbTea.Rank,
-					&dbTea.Vendor,
-					&dbTea.Name,
-					&dbTea.Type,
-					&dbTea.Subtype,
-					&dbTea.Cultivar,
-					&dbTea.Cost,
-					&dbTea.Amount,
-				)
-				if err != nil {
-					log.Fatal("166", err)
-				}
-			}
 		} else {
 			log.Println("Adding: ", localTea.Vendor, localTea.Name)
 			_, err := conn.Exec(context.Background(), `
@@ -203,16 +184,16 @@ func updateDatabase(path string, conn *pgx.Conn) error {
 // maybe save current as a file?
 
 // GET all data as json
-func (s *Service) fetchTeas(c *gin.Context) {
-	teas, err := s.LoadProductsFromDatabase()
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	// return JSON
-	c.JSON(http.StatusOK, teas)
-}
+// func (s *Service) fetchTeas(c *gin.Context) {
+// 	teas, err := s.LoadProductsFromDatabase()
+// 	if err != nil {
+// 		log.Println(err)
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	// return JSON
+// 	c.JSON(http.StatusOK, teas)
+// }
 
 // debug
 func printTeas(conn *pgx.Conn) error {
