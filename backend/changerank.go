@@ -6,9 +6,13 @@ import (
 	"io"
 	"strconv"
 	"encoding/csv"
-    //"github.com/google/uuid"
     "github.com/jackc/pgx/v5"
+	"github.com/gin-gonic/gin"
+	//"github.com/sajari/regression"
 )
+
+type Service struct {
+}
 
 type Tea struct {
 	Year		int		`json:"year"`
@@ -23,10 +27,12 @@ type Tea struct {
 	// Score		float32 `json:"score"`
 }
 
-
-func insertFromCSV(conn *pgx.Conn) error {
+// refreshes db from csv
+// this should only run when commit is pushed (i.e. sheet is updated)
+// TODO: make POST (of CSV)
+func updateDatabase(path string, conn *pgx.Conn) error {
 	// open the csv
-	file, err := os.Open("backend/tea.csv")
+	file, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +40,8 @@ func insertFromCSV(conn *pgx.Conn) error {
 	reader := csv.NewReader(file)
 
 	// SELECT the rows
-	rowptr, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost, type, subtype, cultivar, amount FROM Teas ORDER BY rank ASC NULLS LAST")
+	rowptr, err := conn.Query(context.Background(), 
+		"SELECT year, rank, vendor, name, type, subtype, cultivar, cost, amount FROM Teas ORDER BY rank ASC NULLS LAST")
 	if err != nil {
         log.Fatal(err)
     }
@@ -94,38 +101,35 @@ func insertFromCSV(conn *pgx.Conn) error {
 
 		
 		if exists {
+			// TODO: make fields to update queue
 			update = false
+			if localTea != dbTea {
+				update = true
+			}
 			if localTea.Year != dbTea.Year {
 				dbTea.Year = localTea.Year
-				update = true
 			}
 			if localTea.Type != dbTea.Type {
 				dbTea.Type = localTea.Type
-				update = true
 			}
 			if localTea.Subtype != dbTea.Subtype {
 				dbTea.Subtype = localTea.Subtype
-				update = true
 			}
 			if localTea.Cultivar != dbTea.Cultivar {
 				dbTea.Cultivar = localTea.Cultivar
-				update = true
 			}
 			if localTea.Cost != dbTea.Cost {
 				dbTea.Cost = localTea.Cost
-				update = true
 			}
 			if localTea.Amount != dbTea.Amount {
 				dbTea.Amount = localTea.Amount
-				update = true
 			}
-
-			if rank != dbTea.Rank {
+			if rank < dbTea.Rank {
 				dbTea.Rank = rank
-				update = true
 			}
 
 			if update {
+				log.Println("Updating: ", dbTea.Vendor, dbTea.Name)
 				_, err := conn.Exec(context.Background(), `
 				UPDATE Teas
 				SET year = $1,
@@ -144,19 +148,19 @@ func insertFromCSV(conn *pgx.Conn) error {
 				}
 			}
 			
-			log.Println("Updating: ", dbTea.Vendor, dbTea.Name)
+			
 			
 			// move rowptr
 			if rowptr.Next() {
 				err := rowptr.Scan(
-					&dbTea.Name,
-					&dbTea.Rank,
 					&dbTea.Year,
+					&dbTea.Rank,
 					&dbTea.Vendor,
-					&dbTea.Cost,
+					&dbTea.Name,
 					&dbTea.Type,
 					&dbTea.Subtype,
 					&dbTea.Cultivar,
+					&dbTea.Cost,
 					&dbTea.Amount,
 				)
 				if err != nil {
@@ -193,6 +197,24 @@ func insertFromCSV(conn *pgx.Conn) error {
     return nil
 }
 
+// Polynomial regression 
+// one-hot on all categorical data
+// get SCORE for all data points as well & return a json with it
+// maybe save current as a file?
+
+// GET all data as json
+func (s *Service) fetchTeas(c *gin.Context) {
+	teas, err := s.LoadProductsFromDatabase()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	// return JSON
+	c.JSON(http.StatusOK, teas)
+}
+
+// debug
 func printTeas(conn *pgx.Conn) error {
     rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost FROM Teas ORDER BY rank ASC NULLS LAST")
     if err != nil {
@@ -233,7 +255,7 @@ func main() {
     }
     defer conn.Close(context.Background())
 	log.Println("Adding from CSV:")
-	insertFromCSV(conn)
+	updateDatabase("backend/tea.csv", conn)
     // Print out the balances
     log.Println("\n\nAll tea:")
     printTeas(conn)
