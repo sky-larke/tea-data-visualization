@@ -1,13 +1,14 @@
 Year,Vendor,Name,Category,Sub-category,Cultivar,Cost,Amount
-2017, Daxue Jiadao,Wild Laocong Shuixian,Oolong,Wuyi,Shui Xian,0.96,16
-2024, One River Tea, Longjing #108 | Mingqian Dragonwell Private Order,White,Hangzhou,Longjing #108,2,9
-2023, Daxue Jiadao, Yongchun Shuixian Kaishan,Oolong,Yongchun,Shui Xian,1.51,50
-2022, Daxue Jiadao, Yongchun Laocong Shuixian Bainian,Oolong,Yongchun,Shui Xian,1.26,8
+2017,Daxue Jiadao,Wild Laocong Shuixian,Oolong,Wuyi,Shui Xian,0.96,16
+2024,One River Tea,Longjing #108 | Mingqian Dragonwell Private Order,White,Hangzhou,Longjing #108,2,9
+2023,Daxue Jiadao,Yongchun Shuixian Kaishan,Oolong,Yongchun,Shui Xian,1.51,50
+2022, Daxue Jiadao,Yongchun Laocong Shuixian Bainian,Oolong,Yongchun,Shui Xian,1.26,8
 2024, One River Tea, Silver Needle,White,Fuding,Baihao,1.20,25
 2011, Teas We Like, Biyun Hao Zhengjialiangzi,Puer,Aged Sheng,"Mahei, Yiwu",1.19,20
 2023, Daxue Jiadao, Yongchun Shuixian Annual,Oolong,Yongchun,Shui Xian,0.77,50
 2023, Daxue Jiadao, Yongchun Fo Shou Kaishan,Oolong,Yongchun,Fo Shou,1.47,50
 2023, Daxue Jiadao, Yongchun Fo Shou Annual,Oolong,Yongchun,Fo Shou,0.77,50
+2003, Wistaria,Qingteng,Puer,Aged Sheng,Blend,1.12,8
 , Zoeys Teas, Wudong Old Tree Aofuhou,Oolong,Fenghuang,Ao Fu Hou,1.32,50
 , Zoeys Teas, Real Zheng Yan Hui Yuan Keng Pure Da Hong Pao,Oolong,Wuyi,Blend,1,8
 2011, Unknown, Dayi Golden TAE,Puer,Aged Sheng,Blend,2.50,30
@@ -36,21 +37,23 @@ Year,Vendor,Name,Category,Sub-category,Cultivar,Cost,Amount
 2022, Daxue Jiadao, Guoxiang Rougui,Oolong,Wuyi,Rou Gui,0.40,8
 2024, Floating Leaves, Competition Baozhong,Oolong,Baozhong,Qing Xin,0.45,30
 2024, Floating Leaves, High Mountain Diva,Oolong,Taiwanese,Qing Xin,0.45,60
-2024, Floating Leaves, Charcoal Roast Dong Ding, Oolong,Dong Ding,Ruan Zhi,0.65,30
 2024, Ryuouen, Saiko,Green,Sencha,Blend,0.33,50
 2024, Ryuouen, Asahi,Green,Sencha,Blend,0.20,5
+2024, Floating Leaves, Charcoal Roast Dong Ding, Oolong,Dong Ding,Ruan Zhi,0.65,30
 2022, Daxue Jiadao, Yongchun Fo Shou Trad,Oolong,Wuyi,Fo Shou,0.77,8
 2023, Bitterleaf, Praise Bee Milan Xiang,Oolong,Fenghuang,Milan Xiang,0.90,25
-2023, Ketlee, First Flush Darjeeling,Black,Indian,Darjeeling,0.32,8
 2001, Teas We Like, Red Ribbon,Puer,Aged Sheng,Blend,0.53,15
+2015, Unknown,Biyun Hao Lishan Gongcha,Puer,Aged Sheng,Yiwu,
 2022, Daxue Jiadao, Baiyun Rougui,Oolong,Wuyi,Rou Gui,0.70,8
+2023, Ketlee, First Flush Darjeeling,Black,Indian,Darjeeling,0.32,8
 2023, Viet Sun, Mong Rong Ya Bao,White,Vietnamese,Ya Bao,0.25,8
 2024, Morning Crane, Kim Jeong Yeol Chungiljem Sejak,Green,Korean,Sejak,0.75,15
 2023, Mountain Stream Teas, Sanxia Green,Green,Taiwanese,Sanxia,0.50,25
+2024, West China Tea,Yellow Twig,Oolong,Fenghuang,Huangzhi Xiang,0.40,5
 2024, Viet Sun, Lai Chau Deep Forest Green,Green,Vietnamese,NSV,0.23,25
+2011, Puerh Junky, MKRS ""Creme Florale"",Puer,Aged Sheng,,0.22,30
 2022, White2Tea, Loon-call in the Dark,Puer,Shou,,0.45,25
 2024, One River Tea, Mingqian Longjing,Green,Longjing,,0.52,25
-2011, Puerh Junky, MKRS ""Creme Florale"",Puer,Aged Sheng,,0.22,30
 2023, Thes du Japon,"Kawane, Moto-Fujikawa Shizu-7132",Green,Sencha,Shizu-7132,0.20,100
 2024, Viet Sun, Ha Giang Black,Black,Vietnamese,,0.19,25
 2023, Thes du Japon, Fuji-Kaori,Black,Wakocha,Fuji-Kaori,0.25,8
@@ -122,7 +125,7 @@ Year,Vendor,Name,Category,Sub-category,Cultivar,Cost,Amount
 2021, White2Tea, Tiltshift,White,,,0.16,25
 2023, White2Tea, Yanhong,Black,Yunnan,,0.12,15
 2007, Puerh Junky, CNNP Fuhai 7536 "Mincemeat",Puer,Aged Sheng,Blend,0.11,12
-2023, Yunnan Sourcing, Black Gold Bi Luo Chun,Black,Yunnan,,0.12,40
+2023, Yunnan Sourcing, Black Gold Bi Luo Chun,Black,Yunnan,Bi Luo Chun,0.12,40
 2015, Old Ways Tea, Aged Shui Xian,Oolong,Wuyi, Shui Xian,0.20,40
 2013, Old Ways Tea, Aged Qi Dan,Oolong,Wuyi,Qi Dan,0.29,40
 2023, Yunnan Sourcing, Purple Needle Black Tea of Jing Mai Mountain,Black,,NSV,0.11,20
@@ -134,6 +137,7 @@ Year,Vendor,Name,Category,Sub-category,Cultivar,Cost,Amount
 2023, Viet Sun, Son La Wild Tree, Puerh,Young Sheng,NSV,0.28,25
 2021, Essence of Tea,Boundless,Puer,Young Sheng,Gushu,0.44,10
 2007, Puerh Junky, CNNP Thick Zen,Puer,Aged Sheng,,0.16,12
+2023,Osulloc,Jeju Volcanic Rock Half-Balhyocha,Balhyocha,,,0.34,10
 2023, Bitterleaf, Forest Echo Zhilan Xiang,Oolong,Fenghuang,Zhilan Xiang,0.22,12
 2023, Bitterleaf, Easy Breezy Duck Shit,Oolong,Fenghuang,Yashi Xiang,0.27,25
 2023, White2Tea, Zhenghe Red,Black,,,0.11,10

@@ -4,40 +4,86 @@ import (
     "log"
     "os"
 	"fmt"
+	"strconv"
 	"encoding/csv"
     "github.com/google/uuid"
     "github.com/jackc/pgx/v5"
 )
 
-type Record struct {
-	Year     int
-	Vendor   string
-	Name     string
-	Type     string
-	Subtype  string
-	Cost     float64
-	Amount   int
-	Rank     int
+type Tea struct {
+	Id          int     `json:"id"`
+	Year		int		`json:"year"`
+	Rank		int		`json:"rank"`
+	Vendor      string  `json:"vendor"`
+	Name        string  `json:"name"`
+	Type    	string  `json:"type"`
+	Subtype 	string  `json:"subtype"`
+	Cultivar 	string  `json:"cultivar"`
+	Cost       	float64 `json:"cost"`
+	Amount		float64	`json:"amount"`
+	// Score		float32 `json:"score"`
 }
 
+
 func insertFromCSV(conn *pgx.Conn) error {
-	var records []Record // This would be your CSV records
-	var dbRecords []Record
+	var records []Tea // This would be your CSV records
+	var dbRecords []Tea
 	// open the csv
-	file, err := os.Open("data.csv")
+
+	file, err := os.Open("backend/tea.csv")
 	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
+		log.Fatal(err)
 	}
 	defer file.Close()
 
 	reader := csv.NewReader(file)
-	records, err := reader.ReadAll()
+	rawRecords, err := reader.ReadAll()
+
 	if err != nil {
-		fmt.Println("Error reading records:", err)
-		return
+		log.Fatal(err)
 	}
 
+	// convert csv to correct format
+	for _, row := range rawRecords {
+		if len(row) < 9 {
+			log.Println("Skipping invalid row:", row)
+			continue
+		}
+		
+		
+		id, _  	:= strconv.Atoi(row[0])
+		year, _ := strconv.Atoi(row[1])    
+		rank, _ := strconv.Atoi(row[2])    
+		cost, _ := strconv.ParseFloat(row[8], 64)  
+
+		var teaType string 
+		var subtype string
+		if row[5] != "" {
+			teaType = row[5]
+		}
+
+		if row[6] != "" {
+			subtype = row[6]
+		} 
+
+		amount, _ := strconv.ParseFloat(row[9], 64) 
+
+		tea := Tea{
+			Id: id,
+			Year:    year,
+			Rank:    rank,
+			Name:    row[3],
+			Vendor:  row[4],
+			Type:    teaType,
+			Subtype: subtype,
+			Cultivar: row[7],
+			Cost:    cost,
+			Amount:  amount,
+		}
+
+		records = append(records, tea)
+		log.Printf(tea.Name)
+	}
 
 	// SELECT the rows
 	rows, err := conn.Query(context.Background(), "SELECT name, rank, year, vendor, cost, type, subtype, amount FROM teas ORDER BY rank ASC NULLS LAST")
@@ -46,17 +92,19 @@ func insertFromCSV(conn *pgx.Conn) error {
     }
 	defer rows.Close()
 
+	// convert and add to records
 	for rows.Next() {
-		var r Record
+		var r Tea
 		if err := rows.Scan(&r.Name, &r.Rank, &r.Year, &r.Vendor, &r.Cost, &r.Type, &r.Subtype, &r.Amount); err != nil {
 			log.Fatal(err)
 		}
 		dbRecords = append(dbRecords, r)
 	}
 
-	sqlIndex := 0
-	sqlLen := len(dbRecords)
-    
+	// sqlIndex := 0
+	// sqlLen := len(dbRecords)
+
+
     return nil
 }
 
@@ -125,8 +173,8 @@ func main() {
         log.Fatal(err)
     }
     defer conn.Close(context.Background())
-
-
+	log.Println("Adding from CSV:")
+	insertFromCSV(conn)
     // Print out the balances
     log.Println("All tea:")
     printTeas(conn)
@@ -143,7 +191,5 @@ func main() {
 	var command string = fmt.Sprintf("(%d, %s, %d, %s, %s, %d, %d, %s)", rank, name, year, tea_type, subtype, cost, amount, vendor)
 	log.Printf(command)
 	//add(conn, command)
-
-
 
 }

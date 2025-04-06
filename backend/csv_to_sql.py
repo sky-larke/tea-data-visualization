@@ -9,7 +9,7 @@ def convert_csv_to_sql(csv_file, output_sql_file):
         
         # Strip spaces from the field names
         fieldnames = [field.strip() for field in reader.fieldnames]
-        
+        outfile.write(f"INSERT INTO teas(rank, vendor, name, year, type, subtype, cultivar, cost, amount)\nVALUES\n")
         # Loop through each row in the CSV file
         rank = 0
         for row in reader:
@@ -27,7 +27,7 @@ def convert_csv_to_sql(csv_file, output_sql_file):
             # Extract vendor from the name (if available)
             
             # Format the SQL insert statement
-            sql = f"INSERT INTO teas(rank, vendor, name, year, type, subtype, cultivar, cost, amount) VALUES ('{rank}', '{vendor}', '{name}', '{year}', '{category}', '{subcategory}', '{cultivar}','{cost}', '{amount}');\n"
+            sql = f"('{rank}', '{vendor}', '{name}', '{year}', '{category}', '{subcategory}', '{cultivar}','{cost}', '{amount}');\n"
             
             # Write to the output SQL file
             outfile.write(sql)

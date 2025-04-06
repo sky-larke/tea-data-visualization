@@ -4,7 +4,6 @@ import (
     "context"
     "log"
     "os"
-
     "github.com/cockroachdb/cockroach-go/v2/crdb/crdbpgxv5"
     "github.com/google/uuid"
     "github.com/jackc/pgx/v5"

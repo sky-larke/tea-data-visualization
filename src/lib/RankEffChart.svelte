@@ -16,18 +16,4 @@
         ],
     };
 </script>
-
-<main class="p-4">
-    <h1>Tea Data Visualization</h1>
-    <h2>Overall</h2>
-    <h3>Rank vs. Cost ($/g)</h3>
-    <div class="container" use:echarts={option}></div>
-    <h3>Rank vs. Price Efficiency (Cost-Rank Score)</h3>
-</main>
-
-<style>
-    .container {
-        width: 500px;
-        height: 500px;
-    }
-</style>
+<div class="container" use:echarts={option}></div>
